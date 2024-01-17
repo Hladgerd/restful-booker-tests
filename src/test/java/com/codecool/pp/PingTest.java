@@ -11,7 +11,7 @@ public class PingTest {
     void ping() {
         given()
                 .when()
-                .get("https://restful-booker.herokuapp.com/ping")
+                .get(ApiUrl.getPingUrl())
                 .then()
                 .statusCode(201);
     }

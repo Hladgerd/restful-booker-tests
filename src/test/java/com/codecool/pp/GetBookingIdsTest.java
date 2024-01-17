@@ -17,7 +17,7 @@ public class GetBookingIdsTest {
     void getBookingIdsTest() {
         Response allIdsResponse = given()
                 .when()
-                .get("https://restful-booker.herokuapp.com/booking")
+                .get(ApiUrl.getBookingUrl())
                 .then()
                 .extract()
                 .response();
