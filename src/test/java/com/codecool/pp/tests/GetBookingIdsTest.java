@@ -1,11 +1,11 @@
-package com.codecool.pp;
+package com.codecool.pp.tests;
 
+import com.codecool.pp.requests.GetRequest;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 
-import static io.restassured.RestAssured.given;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,12 +15,7 @@ public class GetBookingIdsTest {
     @Test
     @DisplayName("Get the ids of all the bookings")
     void getBookingIdsTest() {
-        Response allIdsResponse = given()
-                .when()
-                .get(ApiUrl.getBookingUrl())
-                .then()
-                .extract()
-                .response();
+        Response allIdsResponse = GetRequest.getAllBookings();
 
         JsonPath jsonPath = allIdsResponse.jsonPath();
         List<Integer> bookingIds = jsonPath.getList("bookingid");
