@@ -1,5 +1,6 @@
 package com.codecool.pp;
 
+import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
@@ -13,6 +14,6 @@ public class PingTest {
                 .when()
                 .get(ApiUrl.getPingUrl())
                 .then()
-                .statusCode(201);
+                .statusCode(HttpStatus.SC_CREATED);
     }
 }
