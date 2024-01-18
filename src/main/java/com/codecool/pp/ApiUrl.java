@@ -10,6 +10,10 @@ public class ApiUrl {
         return BASE_URL + BOOKING;
     }
 
+    public static String getBookingUrl(int bookingId){
+        return BASE_URL + BOOKING + "/" + bookingId;
+    }
+
     public static String getPingUrl(){
         return BASE_URL + PING;
     }

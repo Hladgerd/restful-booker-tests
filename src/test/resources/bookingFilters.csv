@@ -1,0 +1,9 @@
+Parameter key;Parameter value
+firstname;Sally
+lastname;Brown
+checkin;2000-03-13
+checkout;2000-05-21
+firstname;nonexistent
+lastname;nonexistent
+checkin;2999-01-01
+checkout;2999-01-01

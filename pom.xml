@@ -16,6 +16,9 @@
         <rest-assured.version>5.4.0</rest-assured.version>
         <junit.jupiter.version>5.10.1</junit.jupiter.version>
         <assertj.version>3.25.1</assertj.version>
+        <junit-jupiter-params.version>5.9.1</junit-jupiter-params.version>
+        <junit-jupiter-engine.version>5.9.1</junit-jupiter-engine.version>
+        <json.version>20231013</json.version>
     </properties>
 
     <dependencies>
@@ -45,6 +48,27 @@
             <artifactId>assertj-core</artifactId>
             <version>${assertj.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit-jupiter-params.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-jupiter-engine.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${json.version}</version>
         </dependency>
     </dependencies>
 </project>
