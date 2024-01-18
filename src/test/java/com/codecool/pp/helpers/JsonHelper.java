@@ -13,6 +13,8 @@ public class JsonHelper {
     public static final String BOOKING_DATES = "bookingdates";
 
     public static final String BOOKING_ID = "bookingid";
+    public static final String BOOKING = "booking.";
+    public static final String BOOKING_BOOKING_DATES = "booking.bookingdates.";
 
     public static final List<String> JSONKEYS = List.of(FIRSTNAME, LASTNAME, TOTAL_PRICE, DEPOSIT_PAID,
             BOOKING_DATES + "." + CHECKIN, BOOKING_DATES + "." + CHECKOUT, ADDITIONAL_NEEDS);
