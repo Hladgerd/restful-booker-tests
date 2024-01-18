@@ -17,4 +17,8 @@ public class ApiUrl {
     public static String getPingUrl(){
         return BASE_URL + PING;
     }
+
+    public static String createBookingUrl(){
+        return BASE_URL + BOOKING;
+    }
 }
