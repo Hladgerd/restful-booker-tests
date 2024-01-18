@@ -1,6 +1,6 @@
 package com.codecool.pp.tests;
 
-import com.codecool.pp.requests.GetRequest;
+import com.codecool.pp.requests.GetBookingRequest;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
@@ -15,7 +15,7 @@ import java.util.*;
 import static com.codecool.pp.helpers.JsonHelper.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class GetBookingIdsTest {
+public class RetrieveBookingTest {
 
     private Map<String, String> queryParameter;
 
@@ -28,7 +28,7 @@ public class GetBookingIdsTest {
     @DisplayName("Get all bookings and verify that we get result")
     void getBookingsTest() {
 
-        Response allBookingsResponse = GetRequest.getAllBookings();
+        Response allBookingsResponse = GetBookingRequest.getAllBookings();
         JsonPath jsonPath = allBookingsResponse.jsonPath();
         List<Integer> bookingIds = jsonPath.getList(BOOKING_ID);
 
@@ -55,7 +55,7 @@ public class GetBookingIdsTest {
     void getFilteredBookingsTest(String key, String value) {
 
         queryParameter.put(key, value);
-        Response filteredBookingsResponse = GetRequest.getFilteredBookings(queryParameter);
+        Response filteredBookingsResponse = GetBookingRequest.getFilteredBookings(queryParameter);
         JsonPath filteredBookingsJsonPath = filteredBookingsResponse.jsonPath();
         List<Integer> bookingIds = filteredBookingsJsonPath.getList(BOOKING_ID);
 
@@ -74,7 +74,7 @@ public class GetBookingIdsTest {
     void getBookingsByInvalidFilterTest(String key, String value) {
 
         queryParameter.put(key, value);
-        Response filteredBookingsResponse = GetRequest.getFilteredBookings(queryParameter);
+        Response filteredBookingsResponse = GetBookingRequest.getFilteredBookings(queryParameter);
         String bookingData = filteredBookingsResponse.getBody().asString();
 
         assertThat(filteredBookingsResponse.statusCode()).isEqualTo(HttpStatus.SC_OK);
@@ -86,7 +86,7 @@ public class GetBookingIdsTest {
     void getBookingByIdTest() {
 
         int bookingId = pickValidId();
-        Response getBookingResponse = GetRequest.getBookingById(bookingId);
+        Response getBookingResponse = GetBookingRequest.getBookingById(bookingId);
         JsonPath getBookingJsonPath = getBookingResponse.jsonPath();
 
         assertThat(getBookingResponse.statusCode()).isEqualTo(HttpStatus.SC_OK);
@@ -100,20 +100,20 @@ public class GetBookingIdsTest {
     void getBookingByInvalidIdTest() {
 
         int bookingId = pickInvalidId();
-        Response getBookingResponse = GetRequest.getBookingById(bookingId);
+        Response getBookingResponse = GetBookingRequest.getBookingById(bookingId);
 
         assertThat(getBookingResponse.statusCode()).isEqualTo(HttpStatus.SC_NOT_FOUND);
     }
 
     private List<Integer> getAllBookingIds() {
-        Response allBookingsResponse = GetRequest.getAllBookings();
+        Response allBookingsResponse = GetBookingRequest.getAllBookings();
         JsonPath jsonPath = allBookingsResponse.jsonPath();
         return jsonPath.getList("bookingid");
     }
 
     private JsonPath pickRandomBooking(List<Integer> bookingIds) {
         Collections.shuffle(bookingIds);
-        Response bookingByIdResponse = GetRequest.getBookingById(bookingIds.get(0));
+        Response bookingByIdResponse = GetBookingRequest.getBookingById(bookingIds.get(0));
         return bookingByIdResponse.jsonPath();
     }
 
