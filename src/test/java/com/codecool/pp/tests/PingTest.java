@@ -1,5 +1,6 @@
-package com.codecool.pp;
+package com.codecool.pp.tests;
 
+import com.codecool.pp.ApiUrl;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
