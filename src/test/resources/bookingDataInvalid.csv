@@ -2,5 +2,6 @@ Firstname;lastname;totalprice;depositpaid;checkin;checkout;additionalneeds
 ;;0;true;;;
 Clemens;Davis;100;true;1999-12-01;1999-12-02;
 Conlaoch;Michaud;100;true;2024-12-31;2024-12-01;
+Bartholomei;Marín;100;true;20241201;20241210;
 1;Liao;100;false;2024-12-01;2024-12-31;
 John;{booking:};100;false;2024-12-01;2024-12-31;
