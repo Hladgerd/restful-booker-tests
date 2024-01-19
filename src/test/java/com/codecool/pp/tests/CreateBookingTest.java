@@ -1,12 +1,14 @@
 package com.codecool.pp.tests;
 
-import com.codecool.pp.requests.PostBookingRequest;
-import com.codecool.pp.requests.GetBookingRequest;
+import com.codecool.pp.helpers.JsonHelper;
+import com.codecool.pp.requests.*;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.assertj.core.api.SoftAssertions;
 import org.json.JSONObject;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -16,7 +18,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreateBookingTest {
 
+    private String token;
     private int bookingId;
+
+    @BeforeEach
+    void auth() {
+        JSONObject authLoad = new JSONObject();
+        authLoad.put(USERNAME, JsonHelper.getUsername());
+        authLoad.put(PASSWORD, JsonHelper.getPassword());
+        Response createTokenResponse = PostTokenRequest.createToken(authLoad.toString());
+        token = createTokenResponse.jsonPath().getString(TOKEN);
+    }
+
+    @AfterEach
+    void deleteBooking() {
+        Response response = DeleteBookingRequest.deleteBooking(bookingId, token);
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.SC_CREATED);
+    }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/bookingDataValid.csv", numLinesToSkip = 1, delimiter = ';')
