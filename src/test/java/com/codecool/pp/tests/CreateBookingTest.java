@@ -19,7 +19,7 @@ public class CreateBookingTest {
     private int bookingId;
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/bookingData.csv", numLinesToSkip = 1, delimiter = ';')
+    @CsvFileSource(resources = "/bookingDataValid.csv", numLinesToSkip = 1, delimiter = ';')
     @DisplayName("Create new booking entry and verify details")
     public void createNewBooking(String firstname, String lastname, int totalPrice, boolean depositPaid, String checkin,
                                  String checkout, String additionalNeeds) {

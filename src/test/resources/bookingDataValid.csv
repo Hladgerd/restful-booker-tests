@@ -1,0 +1,4 @@
+Firstname;lastname;totalprice;depositpaid;checkin;checkout;additionalneeds
+Owain;Solis;111;true;2024-08-01;2024-08-21;Breakfast
+Chandra;Sugiyama;222;false;2024-08-01;2024-08-02;Breakfast
+Caradog;Fermi;333;true;2024-08-02;2024-08-03;
