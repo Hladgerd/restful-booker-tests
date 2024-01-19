@@ -108,7 +108,7 @@ public class RetrieveBookingTest {
     private List<Integer> getAllBookingIds() {
         Response allBookingsResponse = GetBookingRequest.getAllBookings();
         JsonPath jsonPath = allBookingsResponse.jsonPath();
-        return jsonPath.getList("bookingid");
+        return jsonPath.getList(BOOKING_ID);
     }
 
     private JsonPath pickRandomBooking(List<Integer> bookingIds) {
