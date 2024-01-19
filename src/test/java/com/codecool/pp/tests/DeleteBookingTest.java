@@ -20,7 +20,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class DeleteBookingTest {
 
-    private static String token;
+    private String token;
+    private int bookingId;
 
     @BeforeEach
     void auth() {
@@ -35,7 +36,7 @@ public class DeleteBookingTest {
     @DisplayName("Delete existing booking")
     void deleteExistingBookingTest() {
 
-        int bookingId = pickValidId();
+        bookingId = pickValidId();
 
         Response deleteBookingResponse = DeleteBookingRequest.deleteBooking(bookingId, token);
         assertThat(deleteBookingResponse.getStatusCode()).isEqualTo(HttpStatus.SC_CREATED);
@@ -47,7 +48,7 @@ public class DeleteBookingTest {
     @Test
     @DisplayName("Delete non existing booking")
     void deleteNonExistingBookingTest() {
-        int bookingId = pickInvalidId();
+        bookingId = pickInvalidId();
 
         Response deleteBookingResponse = DeleteBookingRequest.deleteBooking(bookingId, token);
         assertThat(deleteBookingResponse.getStatusCode()).isEqualTo(HttpStatus.SC_NOT_FOUND);
