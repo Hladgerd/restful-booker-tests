@@ -24,10 +24,10 @@ public class CreateBookingTest {
     public void createNewBooking(String firstname, String lastname, int totalPrice, boolean depositPaid, String checkin,
                                  String checkout, String additionalNeeds) {
 
-        JSONObject bookingLoad = createNewBookingLoad(firstname, lastname, totalPrice, depositPaid, checkin,
-                checkout, additionalNeeds);
+        String bookingLoad = createNewBookingLoad(firstname, lastname, totalPrice, depositPaid, checkin,
+                checkout, additionalNeeds).toString();
 
-        Response createBookingResponse = PostBookingRequest.createBooking(bookingLoad.toString());
+        Response createBookingResponse = PostBookingRequest.createBooking(bookingLoad);
         JsonPath createBookingJsonPath = createBookingResponse.jsonPath();
         bookingId = getBookingId(createBookingJsonPath);
 
@@ -38,6 +38,24 @@ public class CreateBookingTest {
         JsonPath newBooking = getBookingById(bookingId);
         verifyNewBookingContainsCorrectData(newBooking, firstname, lastname, totalPrice, depositPaid, checkin,
                 checkout, additionalNeeds);
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/bookingDataInvalid.csv", numLinesToSkip = 1, delimiter = ';')
+    @DisplayName("Create new booking entry with invalid data fails")
+    public void createNewBookingWithInvalidData(String firstname, String lastname, int totalPrice, boolean depositPaid, String checkin,
+                                 String checkout, String additionalNeeds) {
+
+        String bookingLoad = createNewBookingLoad(firstname, lastname, totalPrice, depositPaid, checkin,
+                checkout, additionalNeeds).toString();
+
+        Response createBookingResponse = PostBookingRequest.createBooking(bookingLoad);
+        createBookingResponse.prettyPrint();
+        System.out.println("vmi");
+        System.out.println(createBookingResponse.htmlPath().getString("body"));
+
+        assertThat(createBookingResponse.statusCode()).isEqualTo(HttpStatus.SC_INTERNAL_SERVER_ERROR);
+
     }
 
 
