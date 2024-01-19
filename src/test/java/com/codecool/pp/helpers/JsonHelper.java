@@ -1,5 +1,7 @@
 package com.codecool.pp.helpers;
 
+import org.json.JSONObject;
+
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -23,6 +25,22 @@ public class JsonHelper {
 
     public static final List<String> JSONKEYS = List.of(FIRSTNAME, LASTNAME, TOTAL_PRICE, DEPOSIT_PAID,
             BOOKING_DATES + "." + CHECKIN, BOOKING_DATES + "." + CHECKOUT, ADDITIONAL_NEEDS);
+
+    public static JSONObject createBookingLoad(String firstname, String lastname, int totalPrice, boolean depositPaid,
+                                            String checkin, String checkout, String additionalNeeds) {
+        JSONObject bookingDates = new JSONObject();
+        bookingDates.put(CHECKIN, checkin);
+        bookingDates.put(CHECKOUT, checkout);
+
+        JSONObject newBookingLoad = new JSONObject();
+        newBookingLoad.put(FIRSTNAME, firstname);
+        newBookingLoad.put(LASTNAME, lastname);
+        newBookingLoad.put(TOTAL_PRICE, totalPrice);
+        newBookingLoad.put(DEPOSIT_PAID, depositPaid);
+        newBookingLoad.put(BOOKING_DATES, bookingDates);
+        newBookingLoad.put(ADDITIONAL_NEEDS, additionalNeeds);
+        return newBookingLoad;
+    }
 
     public static String getUsername() {
         return getProperty(USERNAME);

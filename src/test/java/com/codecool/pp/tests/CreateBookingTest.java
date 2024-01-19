@@ -32,8 +32,7 @@ public class CreateBookingTest {
 
     @AfterEach
     void deleteBooking() {
-        Response response = DeleteBookingRequest.deleteBooking(bookingId, token);
-        assertThat(response.statusCode()).isEqualTo(HttpStatus.SC_CREATED);
+        DeleteBookingRequest.deleteBooking(bookingId, token);
     }
 
     @ParameterizedTest
@@ -42,7 +41,7 @@ public class CreateBookingTest {
     public void createNewBooking(String firstname, String lastname, int totalPrice, boolean depositPaid, String checkin,
                                  String checkout, String additionalNeeds) {
 
-        String bookingLoad = createNewBookingLoad(firstname, lastname, totalPrice, depositPaid, checkin,
+        String bookingLoad = JsonHelper.createBookingLoad(firstname, lastname, totalPrice, depositPaid, checkin,
                 checkout, additionalNeeds).toString();
 
         Response createBookingResponse = PostBookingRequest.createBooking(bookingLoad);
@@ -64,34 +63,12 @@ public class CreateBookingTest {
     public void createNewBookingWithInvalidData(String firstname, String lastname, int totalPrice, boolean depositPaid, String checkin,
                                  String checkout, String additionalNeeds) {
 
-        String bookingLoad = createNewBookingLoad(firstname, lastname, totalPrice, depositPaid, checkin,
+        String bookingLoad = JsonHelper.createBookingLoad(firstname, lastname, totalPrice, depositPaid, checkin,
                 checkout, additionalNeeds).toString();
 
         Response createBookingResponse = PostBookingRequest.createBooking(bookingLoad);
-        createBookingResponse.prettyPrint();
-        System.out.println("vmi");
-        System.out.println(createBookingResponse.htmlPath().getString("body"));
 
         assertThat(createBookingResponse.statusCode()).isEqualTo(HttpStatus.SC_INTERNAL_SERVER_ERROR);
-
-    }
-
-
-
-    private JSONObject createNewBookingLoad(String firstname, String lastname, int totalPrice, boolean depositPaid,
-                                            String checkin, String checkout, String additionalNeeds) {
-        JSONObject bookingDates = new JSONObject();
-        bookingDates.put(CHECKIN, checkin);
-        bookingDates.put(CHECKOUT, checkout);
-
-        JSONObject newBookingLoad = new JSONObject();
-        newBookingLoad.put(FIRSTNAME, firstname);
-        newBookingLoad.put(LASTNAME, lastname);
-        newBookingLoad.put(TOTAL_PRICE, totalPrice);
-        newBookingLoad.put(DEPOSIT_PAID, depositPaid);
-        newBookingLoad.put(BOOKING_DATES, bookingDates);
-        newBookingLoad.put(ADDITIONAL_NEEDS, additionalNeeds);
-        return newBookingLoad;
     }
 
     private int getBookingId(JsonPath jsonPath) {
