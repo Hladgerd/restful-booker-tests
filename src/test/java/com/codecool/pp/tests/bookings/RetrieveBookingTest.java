@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,8 +91,8 @@ public class RetrieveBookingTest extends BaseBookingTest {
         JsonPath getBookingJsonPath = getBookingResponse.jsonPath();
 
         assertThat(getBookingResponse.statusCode()).isEqualTo(HttpStatus.SC_OK);
-        for (String jsonkey: JSONKEYS) {
-            assertThat(getBookingJsonPath.getString(jsonkey)).isNotEmpty();
+        for (String jsonKey: JSONKEYS) {
+            assertThat(getBookingJsonPath.getString(jsonKey)).isNotEmpty();
         }
     }
 
@@ -105,29 +104,5 @@ public class RetrieveBookingTest extends BaseBookingTest {
         Response getBookingResponse = getBookingRequest.getBookingById(bookingId);
 
         assertThat(getBookingResponse.statusCode()).isEqualTo(HttpStatus.SC_NOT_FOUND);
-    }
-
-    private List<Integer> getAllBookingIds() {
-        Response allBookingsResponse = getBookingRequest.getAllBookings();
-        JsonPath jsonPath = allBookingsResponse.jsonPath();
-        return jsonPath.getList(BOOKING_ID);
-    }
-
-    private JsonPath pickRandomBooking(List<Integer> bookingIds) {
-        Collections.shuffle(bookingIds);
-        Response bookingByIdResponse = getBookingRequest.getBookingById(bookingIds.get(0));
-        return bookingByIdResponse.jsonPath();
-    }
-
-    private int pickValidId() {
-        List<Integer> bookingIds = getAllBookingIds();
-        Collections.shuffle(bookingIds);
-        return bookingIds.get(0);
-    }
-
-    private int pickInvalidId() {
-        List<Integer> bookingIds = getAllBookingIds();
-        Collections.sort(bookingIds);
-        return bookingIds.get((bookingIds.size()-1)) + 1;
     }
 }
