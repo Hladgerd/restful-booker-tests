@@ -5,12 +5,12 @@
 ![](https://img.shields.io/badge/Library-REST%20Assured-informational?style=flat&&color=blueviolet)
 ![](https://img.shields.io/badge/Library-AssertJ-informational?style=flat&&color=blueviolet)
 
-Links : [Restful -Booker](https://restful-booker.herokuapp.com/),  [Restful-Booker API Docs](https://restful-booker.herokuapp.com/apidoc/index.html)
+Links : [Restful-Booker](https://restful-booker.herokuapp.com/),  [Restful-Booker API Docs](https://restful-booker.herokuapp.com/apidoc/index.html)
 
 *Restful-Booker* is a Web API playground with authentication, CRUD operations and several bugs.
 
 ## Installation
-Clone with Git using command line and this command:  
+Clone the repository:  
 `git clone git@github.com:Hladgerd/restful-booker-tests.git`
 
 
@@ -21,9 +21,8 @@ The credentials should be entered in authentication.properties file.
 
 
 ### Running the tests
-You can run tests:
-- using "Run test" option in Intellij Idea IDE
-- using `mvn clean test` command in terminal
+Run tests:  
+`mvn clean test`
 
 
 ## Issues found
@@ -39,4 +38,4 @@ You can run tests:
 * Optional field not nulled by update
 
 `https://restful-booker.herokuapp.com/booking/1` - Delete Booking
-* Delete non existing booking returns 405 HTTP code for not found message.
+* Delete non-existing booking returns 405 HTTP code for not found message.
