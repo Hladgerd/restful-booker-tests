@@ -1,29 +1,13 @@
-package com.codecool.pp.tests.bookings;
+package com.codecool.pp.tests.bookings.authenticated;
 
-import com.codecool.pp.helpers.JsonHelper;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
-import org.json.JSONObject;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.codecool.pp.helpers.JsonHelper.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DeleteBookingTest extends BaseBookingTest {
-
-    private String token;
-    private int bookingId;
-
-    @BeforeEach
-    void auth() {
-        JSONObject authLoad = new JSONObject();
-        authLoad.put(USERNAME, JsonHelper.getUsername());
-        authLoad.put(PASSWORD, JsonHelper.getPassword());
-        Response createTokenResponse = postTokenRequest.createToken(authLoad.toString());
-        token = createTokenResponse.jsonPath().getString(TOKEN);
-    }
+public class DeleteBookingTest extends AuthenticatedBookingTest {
 
     @Test
     @DisplayName("Delete existing booking")
