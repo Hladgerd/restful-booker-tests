@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.given;
 
 public class PostBookingRequest {
 
-    public static Response createBooking(String bookingLoad){
+    public Response createBooking(String bookingLoad){
         return given()
                 .contentType(ContentType.JSON)
                 .accept("application/json")

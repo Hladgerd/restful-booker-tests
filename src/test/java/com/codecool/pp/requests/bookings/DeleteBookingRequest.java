@@ -7,7 +7,7 @@ import static io.restassured.RestAssured.given;
 
 public class DeleteBookingRequest {
 
-    public static Response deleteBooking(int bookingId, String token) {
+    public Response deleteBooking(int bookingId, String token) {
         return given()
                 .header("Cookie", "token=" + token)
                 .when()

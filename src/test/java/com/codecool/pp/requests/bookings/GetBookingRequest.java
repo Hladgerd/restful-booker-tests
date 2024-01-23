@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.given;
 
 public class GetBookingRequest {
 
-    public static Response getAllBookings(){
+    public Response getAllBookings(){
         return given()
                 .when()
                 .get(ApiUrl.getBookingUrl())
@@ -18,7 +18,7 @@ public class GetBookingRequest {
                 .response();
     }
 
-    public static Response getFilteredBookings(Map<String, String> queryParams){
+    public Response getFilteredBookings(Map<String, String> queryParams){
         return given()
                 .when()
                 .queryParams(queryParams)
@@ -28,7 +28,7 @@ public class GetBookingRequest {
                 .response();
     }
 
-    public static Response getBookingById(int bookingId){
+    public Response getBookingById(int bookingId){
         return given()
                 .when()
                 .get(ApiUrl.getBookingUrl(bookingId))

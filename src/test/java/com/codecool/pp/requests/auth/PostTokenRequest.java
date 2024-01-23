@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.given;
 
 public class PostTokenRequest {
 
-    public static Response createToken(String authLoad) {
+    public Response createToken(String authLoad) {
         return given()
                 .contentType(ContentType.JSON)
                 .body(authLoad)

@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.given;
 
 public class PutBookingRequest {
 
-    public static Response updateBooking(String bookingLoad, int bookingId, String token){
+    public Response updateBooking(String bookingLoad, int bookingId, String token){
         return given()
                 .contentType(ContentType.JSON)
                 .header("Cookie", "token=" + token)
