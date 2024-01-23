@@ -1,7 +1,10 @@
-package com.codecool.pp.tests;
+package com.codecool.pp.tests.bookings;
 
 import com.codecool.pp.helpers.JsonHelper;
-import com.codecool.pp.requests.*;
+import com.codecool.pp.requests.auth.PostTokenRequest;
+import com.codecool.pp.requests.bookings.DeleteBookingRequest;
+import com.codecool.pp.requests.bookings.GetBookingRequest;
+import com.codecool.pp.requests.bookings.PutBookingRequest;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;

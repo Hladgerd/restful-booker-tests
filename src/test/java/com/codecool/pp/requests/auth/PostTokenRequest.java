@@ -1,4 +1,4 @@
-package com.codecool.pp.requests;
+package com.codecool.pp.requests.auth;
 
 import com.codecool.pp.ApiUrl;
 import io.restassured.http.ContentType;
@@ -6,15 +6,14 @@ import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
-public class PostBookingRequest {
+public class PostTokenRequest {
 
-    public static Response createBooking(String bookingLoad){
+    public static Response createToken(String authLoad) {
         return given()
                 .contentType(ContentType.JSON)
-                .accept("application/json")
-                .body(bookingLoad)
+                .body(authLoad)
                 .when()
-                .post(ApiUrl.createBookingUrl())
+                .post(ApiUrl.getAuthUrl())
                 .then()
                 .extract()
                 .response();

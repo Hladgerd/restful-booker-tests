@@ -1,4 +1,4 @@
-package com.codecool.pp.requests;
+package com.codecool.pp.requests.bookings;
 
 import com.codecool.pp.ApiUrl;
 import io.restassured.http.ContentType;

@@ -1,4 +1,4 @@
-package com.codecool.pp.tests;
+package com.codecool.pp.tests.ping;
 
 import com.codecool.pp.ApiUrl;
 import org.apache.http.HttpStatus;
