@@ -30,8 +30,7 @@ public class RetrieveBookingTest extends BaseBookingTest {
     void getBookingsTest() {
 
         Response allBookingsResponse = getBookingRequest.getAllBookings();
-        JsonPath jsonPath = allBookingsResponse.jsonPath();
-        List<Integer> bookingIds = jsonPath.getList(BOOKING_ID);
+        List<Integer> bookingIds = collectIds(allBookingsResponse);
 
         assertThat(allBookingsResponse.statusCode()).isEqualTo(HttpStatus.SC_OK);
         assertThat(bookingIds).isNotEmpty();
@@ -57,8 +56,7 @@ public class RetrieveBookingTest extends BaseBookingTest {
 
         queryParameter.put(key, value);
         Response filteredBookingsResponse = getBookingRequest.getFilteredBookings(queryParameter);
-        JsonPath filteredBookingsJsonPath = filteredBookingsResponse.jsonPath();
-        List<Integer> bookingIds = filteredBookingsJsonPath.getList(BOOKING_ID);
+        List<Integer> bookingIds = collectIds(filteredBookingsResponse);
 
         JsonPath pickedBooking = pickRandomBooking(bookingIds);
 
