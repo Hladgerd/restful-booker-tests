@@ -1,9 +1,6 @@
 package com.codecool.pp.tests.bookings;
 
 import com.codecool.pp.helpers.JsonHelper;
-import com.codecool.pp.requests.bookings.DeleteBookingRequest;
-import com.codecool.pp.requests.bookings.GetBookingRequest;
-import com.codecool.pp.requests.auth.PostTokenRequest;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
@@ -18,7 +15,7 @@ import java.util.List;
 import static com.codecool.pp.helpers.JsonHelper.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DeleteBookingTest {
+public class DeleteBookingTest extends BaseBookingTest {
 
     private String token;
     private int bookingId;
@@ -28,7 +25,7 @@ public class DeleteBookingTest {
         JSONObject authLoad = new JSONObject();
         authLoad.put(USERNAME, JsonHelper.getUsername());
         authLoad.put(PASSWORD, JsonHelper.getPassword());
-        Response createTokenResponse = PostTokenRequest.createToken(authLoad.toString());
+        Response createTokenResponse = postTokenRequest.createToken(authLoad.toString());
         token = createTokenResponse.jsonPath().getString(TOKEN);
     }
 
@@ -38,10 +35,10 @@ public class DeleteBookingTest {
 
         bookingId = pickValidId();
 
-        Response deleteBookingResponse = DeleteBookingRequest.deleteBooking(bookingId, token);
+        Response deleteBookingResponse = deleteBookingRequest.deleteBooking(bookingId, token);
         assertThat(deleteBookingResponse.getStatusCode()).isEqualTo(HttpStatus.SC_CREATED);
 
-        Response getBookingResponse = GetBookingRequest.getBookingById(bookingId);
+        Response getBookingResponse = getBookingRequest.getBookingById(bookingId);
         assertThat(getBookingResponse.getStatusCode()).isEqualTo(HttpStatus.SC_NOT_FOUND);
     }
 
@@ -50,12 +47,12 @@ public class DeleteBookingTest {
     void deleteNonExistingBookingTest() {
         bookingId = pickInvalidId();
 
-        Response deleteBookingResponse = DeleteBookingRequest.deleteBooking(bookingId, token);
+        Response deleteBookingResponse = deleteBookingRequest.deleteBooking(bookingId, token);
         assertThat(deleteBookingResponse.getStatusCode()).isEqualTo(HttpStatus.SC_NOT_FOUND);
     }
 
     private List<Integer> getAllBookingIds() {
-        Response allBookingsResponse = GetBookingRequest.getAllBookings();
+        Response allBookingsResponse = getBookingRequest.getAllBookings();
         JsonPath jsonPath = allBookingsResponse.jsonPath();
         return jsonPath.getList(BOOKING_ID);
     }

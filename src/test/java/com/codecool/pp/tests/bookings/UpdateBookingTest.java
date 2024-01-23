@@ -1,10 +1,6 @@
 package com.codecool.pp.tests.bookings;
 
 import com.codecool.pp.helpers.JsonHelper;
-import com.codecool.pp.requests.auth.PostTokenRequest;
-import com.codecool.pp.requests.bookings.DeleteBookingRequest;
-import com.codecool.pp.requests.bookings.GetBookingRequest;
-import com.codecool.pp.requests.bookings.PutBookingRequest;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
@@ -20,10 +16,9 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.codecool.pp.helpers.JsonHelper.*;
-import static com.codecool.pp.helpers.JsonHelper.ADDITIONAL_NEEDS;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UpdateBookingTest {
+public class UpdateBookingTest extends BaseBookingTest {
 
     private String token;
     private int bookingId;
@@ -33,13 +28,13 @@ public class UpdateBookingTest {
         JSONObject authLoad = new JSONObject();
         authLoad.put(USERNAME, JsonHelper.getUsername());
         authLoad.put(PASSWORD, JsonHelper.getPassword());
-        Response createTokenResponse = PostTokenRequest.createToken(authLoad.toString());
+        Response createTokenResponse = postTokenRequest.createToken(authLoad.toString());
         token = createTokenResponse.jsonPath().getString(TOKEN);
     }
 
     @AfterEach
     void deleteBooking() {
-        DeleteBookingRequest.deleteBooking(bookingId, token);
+        deleteBookingRequest.deleteBooking(bookingId, token);
     }
 
     @ParameterizedTest
@@ -52,7 +47,7 @@ public class UpdateBookingTest {
         String bookingLoad = createBookingLoad(firstname, lastname, totalPrice, depositPaid, checkin,
                 checkout, additionalNeeds).toString();
 
-        Response updateBookingResponse = PutBookingRequest.updateBooking(bookingLoad, bookingId, token);
+        Response updateBookingResponse = putBookingRequest.updateBooking(bookingLoad, bookingId, token);
         JsonPath updateBookingJsonPath = updateBookingResponse.jsonPath();
         updateBookingResponse.prettyPrint();
 
@@ -76,19 +71,19 @@ public class UpdateBookingTest {
         String bookingLoad = createBookingLoad(firstname, lastname, totalPrice, depositPaid, checkin,
                 checkout, additionalNeeds).toString();
 
-        Response updateBookingResponse = PutBookingRequest.updateBooking(bookingLoad, bookingId, token);
+        Response updateBookingResponse = putBookingRequest.updateBooking(bookingLoad, bookingId, token);
 
         assertThat(updateBookingResponse.statusCode()).isEqualTo(HttpStatus.SC_INTERNAL_SERVER_ERROR);
     }
 
     private List<Integer> getAllBookingIds() {
-        Response allBookingsResponse = GetBookingRequest.getAllBookings();
+        Response allBookingsResponse = getBookingRequest.getAllBookings();
         JsonPath jsonPath = allBookingsResponse.jsonPath();
         return jsonPath.getList(BOOKING_ID);
     }
 
     private JsonPath getBookingById(int bookingId) {
-        Response getBookingResponse = GetBookingRequest.getBookingById(bookingId);
+        Response getBookingResponse = getBookingRequest.getBookingById(bookingId);
         return getBookingResponse.jsonPath();
     }
 
