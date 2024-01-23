@@ -17,11 +17,11 @@ import static com.codecool.pp.helpers.JsonHelper.ADDITIONAL_NEEDS;
 
 public abstract class BaseBookingTest {
 
-    DeleteBookingRequest deleteBookingRequest = new DeleteBookingRequest();
-    GetBookingRequest getBookingRequest = new GetBookingRequest();
-    PostBookingRequest postBookingRequest = new PostBookingRequest();
-    PutBookingRequest putBookingRequest = new PutBookingRequest();
-    PostTokenRequest postTokenRequest = new PostTokenRequest();
+    protected DeleteBookingRequest deleteBookingRequest = new DeleteBookingRequest();
+    protected GetBookingRequest getBookingRequest = new GetBookingRequest();
+    protected PostBookingRequest postBookingRequest = new PostBookingRequest();
+    protected PutBookingRequest putBookingRequest = new PutBookingRequest();
+    protected PostTokenRequest postTokenRequest = new PostTokenRequest();
 
     protected List<Integer> getAllBookingIds() {
         Response allBookingsResponse = getBookingRequest.getAllBookings();
