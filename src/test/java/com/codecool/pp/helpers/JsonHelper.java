@@ -26,6 +26,14 @@ public class JsonHelper {
     public static final List<String> JSONKEYS = List.of(FIRSTNAME, LASTNAME, TOTAL_PRICE, DEPOSIT_PAID,
             BOOKING_DATES + "." + CHECKIN, BOOKING_DATES + "." + CHECKOUT, ADDITIONAL_NEEDS);
 
+    public static final String FIRSTNAME_SAMPLE = "Iosif";
+    public static final String LASTNAME_SAMPLE = "Aina";
+    public static final int TOTAL_PRICE_SAMPLE = 1012;
+    public static final boolean DEPOSIT_PAID_SAMPLE = true;
+    public static final String CHECKIN_SAMPLE = "2024-08-01";
+    public static final String CHECKOUT_SAMPLE = "2024-08-21";
+    public static final String ADDITIONAL_NEEDS_SAMPLE = "Breakfast";
+
     public static JSONObject createBookingLoad(String firstname, String lastname, int totalPrice, boolean depositPaid,
                                             String checkin, String checkout, String additionalNeeds) {
         JSONObject bookingDates = new JSONObject();
