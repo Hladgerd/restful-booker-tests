@@ -1,5 +1,6 @@
 package com.codecool.pp.tests.bookings;
 
+import com.codecool.pp.helpers.JsonHelper;
 import com.codecool.pp.requests.auth.PostTokenRequest;
 import com.codecool.pp.requests.bookings.DeleteBookingRequest;
 import com.codecool.pp.requests.bookings.GetBookingRequest;
@@ -29,13 +30,18 @@ public abstract class BaseBookingTest {
         return jsonPath.getList(BOOKING_ID);
     }
 
-    protected JsonPath getBookingById(int bookingId) {
-        Response getBookingResponse = getBookingRequest.getBookingById(bookingId);
-        return getBookingResponse.jsonPath();
+    protected Response getBookingById(int bookingId) {
+        return getBookingRequest.getBookingById(bookingId);
     }
 
-    protected int getBookingId(JsonPath jsonPath) {
+    protected int collectId(Response response) {
+        JsonPath jsonPath = response.jsonPath();
         return Integer.parseInt(jsonPath.getString(BOOKING_ID));
+    }
+
+    protected List<Integer> collectIds(Response response) {
+        JsonPath jsonPath = response.jsonPath();
+        return jsonPath.getList(BOOKING_ID);
     }
 
     protected JsonPath pickRandomBooking(List<Integer> bookingIds) {
@@ -56,11 +62,20 @@ public abstract class BaseBookingTest {
         return bookingIds.get((bookingIds.size()-1)) + 1;
     }
 
-    protected void verifyResponseContainsCorrectData(JsonPath jsonPath, String firstname, String lastname,
+    protected int createNewBooking(){
+        String bookingLoad = JsonHelper.createBookingLoad(FIRSTNAME_SAMPLE, LASTNAME_SAMPLE, TOTAL_PRICE_SAMPLE,
+                DEPOSIT_PAID_SAMPLE, CHECKIN_SAMPLE, CHECKOUT_SAMPLE, ADDITIONAL_NEEDS_SAMPLE).toString();
+
+        Response createBookingResponse = postBookingRequest.createBooking(bookingLoad);
+        return collectId(createBookingResponse);
+    }
+
+    protected void verifyResponseContainsCorrectData(Response response, String firstname, String lastname,
                                                      int totalPrice, boolean depositPaid, String checkin,
                                                      String checkout, String additionalNeeds) {
 
         SoftAssertions softAssertions = new SoftAssertions();
+        JsonPath jsonPath = response.jsonPath();
 
         softAssertions.assertThat(jsonPath.getString(BOOKING + FIRSTNAME)).isEqualTo(firstname);
         softAssertions.assertThat(jsonPath.getString(BOOKING + LASTNAME)).isEqualTo(lastname);
@@ -73,11 +88,12 @@ public abstract class BaseBookingTest {
         softAssertions.assertAll();
     }
 
-    protected void verifyBookingContainsCorrectData(JsonPath jsonPath, String firstname, String lastname,
+    protected void verifyBookingContainsCorrectData(Response response, String firstname, String lastname,
                                                   int totalPrice, boolean depositPaid, String checkin,
                                                   String checkout, String additionalNeeds) {
 
         SoftAssertions softAssertions = new SoftAssertions();
+        JsonPath jsonPath = response.jsonPath();
 
         softAssertions.assertThat(jsonPath.getString(FIRSTNAME)).isEqualTo(firstname);
         softAssertions.assertThat(jsonPath.getString(LASTNAME)).isEqualTo(lastname);
